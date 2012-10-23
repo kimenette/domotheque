@@ -11,12 +11,12 @@
 				<div class="row-fluid">
 					<div class="span3">
 						<legend><h2>Se connecter</h2></legend>
-						<form >
+						<form name="connexion" method="post" action="data/connexion.php">
 							<label>Pseudo ou adresse email</label>
-							<input type="text" placeholder="votre pseudo ou votre adresse email">
+							<input type="text" name="psemail" placeholder="votre pseudo ou votre adresse email">
 							<label>Mot de passe</label>
-							<input type="password" class="input-small" placeholder="Password">
-							<button type="submit" class="btn btn-primary">Se connecter</button>
+							<input type="password" name="password" class="input-small" placeholder="Password">
+							<button type="submit"  name="connexion" value="se connecter" class="btn btn-primary">Se connecter</button>
 						</form>
 					</div>
 					<div class="span9">
