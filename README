@@ -1,1 +1,7 @@
 Hello world
+touch nomFichier.extension
+git init
+git add nomFichier.extension
+git commit -m "Commentaire pour le commit"
+git remote add origin https://github.com/kimenette/domotheque.git
+git push -u origin master
