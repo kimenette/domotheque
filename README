@@ -5,3 +5,21 @@ git add nomFichier.extension
 git commit -m "Commentaire pour le commit"
 git remote add origin https://github.com/kimenette/domotheque.git
 git push -u origin master
+
+Créer une branche :
+$ git branch ma-branche
+$ git branch pour vérifier création
+	-> otbient :
+	* master
+	ma-branche
+$ git checkout ma-branche pour utiliser la branche
+
+Pousser une branche :
+$ git push origin ma-branche 
+$ git clone https://github.com/kimenette/domotheque.git vérifie création branche en clonant dépôt
+$ git branch -a
+	->obtient :
+	* master 
+	remotes/origin/HEAD -> origin/master
+	remotes/origin/ma-branche
+	remotes/origin/master
