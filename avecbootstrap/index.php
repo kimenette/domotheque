@@ -90,6 +90,9 @@
 		
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<!--Pour travailler en local en cas que le réseau ne soit pas accessible
+		<script text="text/javascript" src="js/latestjquery.js"
+		-->
 		<script src="js/bootstrap.min.js"></script>
 		<script>
 			    $('#myTab a').click(function (e) {
