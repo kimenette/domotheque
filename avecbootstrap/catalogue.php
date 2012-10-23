@@ -1,24 +1,65 @@
 <?php
 	/*==============================================================*/
-	/*Compte tous les produits
-	* Si existe $_SESSION['catalLength'] et existe $_SESSION['catalogue'] Alors
-	*	Vérifie si doit faire un mise à j de la session grâce taille $_SESSION['catalLength']
-	* Sinon (n'existe $_SESSION['catalLength']) Alors créer $_SESSION['catalogue'][]
-	/*==============================================================*/
-	if(isset($_SESSION['catalLength']) && isset($_SESSION['catalogue']))
-	{
-		$sql_catalLenghtBdD=mysql_query("SELECT COUNT(prod_id) FROM produit ;")or die(mysql_error());
-		$catalLengthBdD = mysql_result($sql_catalLenghtBdD,0);
+	/* Obtient le catalogue
+	* Trie en fonction de la catégorie et l'ordre choisi
+	*/
+	/*==============================================================*/	
+	if(isset($_GET['categ']))
+		$categCatal = $_GET['categ'];
+	else
+		$categCatal = 'all';
 		
-		if($catalLengthBdD > $_SESSION['catalLength'])
+	for($i=0; $i<$_SESSION['categLenght']; $i++)
+	{
+		switch($categCatal)
 		{
-			getCatalogue("prod_id");
+			case'all':
+				$sql_categ = '';
+				break;
+			case $_SESSION["categories"][$i]["cat_id"] :
+				$sql_categ = 'WHERE cat_libelle="'.$_SESSION['categories'][$i]['cat_libelle'].'"';
+				break;
 		}
 	}
+	
+	if(isset($_GET['ordre']))
+		$ordreCatal = $_GET['ordre'];
 	else
+		$ordreCatal = 'precent';
+		
+	switch($ordreCatal)
 	{
-		getCatalogue("prod_id");
+		case 'precent':
+			$sqlOrdre = 'prod_dateaj DESC, prod_libelle';
+			break;
+		case 'mrecent':
+			$sqlOrdre = 'prod_dateaj ASC, prod_libelle';
+			break;
+		case 'alpha':
+			$sqlOrdre = 'prod_libelle ASC';
+			break;
+		case 'nalpha':
+			$sqlOrdre = 'prod_libelle DESC';
+			break;
+		case 'prixC':
+			$sqlOrdre = 'prod_prixTTC ASC';
+			break;
+		case 'prixD':
+			$sqlOrdre = 'prod_prixTTC DESC';
+			break;
 	}
+	
+	$sql_catal=mysql_query("SELECT prod_id, prod_libelle, prod_prixTTC, prod_dateaj, cat_libelle FROM produit 
+	INNER JOIN categorie ON produit.cat_id = categorie.cat_id
+	".$sql_categ."
+	ORDER BY ".$sqlOrdre." ;")or die(mysql_error());
+	while($row_catal = mysql_fetch_assoc($sql_catal))
+	{
+		$catalogue[] = $row_catal;
+	}
+	$catalLength = sizeof($catalogue);
+	
+	
 	
 	/*==============================================================*/
 	/*Compte tous les partenaires
@@ -84,16 +125,6 @@
 	/*==============================================================*/
 	/* Fonctions php
 	/*==============================================================*/
-	function getCatalogue($p_order){
-		$sql_catal=mysql_query("SELECT prod_id, prod_libelle, prod_prixTTC, prod_dateaj, cat_libelle FROM produit 
-		INNER JOIN categorie ON produit.cat_id = categorie.cat_id
-		ORDER BY ".$p_order." ;")or die(mysql_error());
-		while($row_catal = mysql_fetch_assoc($sql_catal))
-		{
-			$_SESSION['catalogue'][] = $row_catal;
-		}
-		$_SESSION['catalLength'] = sizeof($_SESSION['catalogue']);
-	}
 	
 	function getPartenaires(){
 		$sql_partenaires=mysql_query("SELECT part_id,part_raisoc FROM partenaire ORDER BY part_raisoc;")or die(mysql_error());
@@ -109,6 +140,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Catalogue</title>
+		<script text="text/javascript" src="js/trieCatal.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -117,25 +149,28 @@
 				<div class="row-fluid">
 					<div class="span1">
 						<h3>Ordre</h3>
-						<select>
-<?php
-							for($i=0; $i<$_SESSION['categLenght']; $i++)
-							{
-								echo'<option value="categ'.$_SESSION["categories"][$i]["cat_id"].'">'.$_SESSION['categories'][$i]["cat_libelle"].'</option> ';
-							}
-?>
+						<select id="ordreCatal" onchange="OrdonnerCatal();">
+							<option value="precent"	<?php if($ordreCatal=='precent') echo " selected='selected'"; ?>	>Plus récent			</option>
+							<option value="mrecent"	<?php if($ordreCatal=='mrecent') echo " selected='selected'"; ?>	>Plus ancien			</option>
+							<option value="alpha"	<?php if($ordreCatal=='alpha') echo " selected='selected'"; ?>		>Alphabétique			</option>
+							<option value="nalpha"	<?php if($ordreCatal=='nalpha') echo " selected='selected'"; ?>		>Inverse alphabéthique	</option>
+							<option value="prixC"	<?php if($ordreCatal=='prixC') echo " selected='selected'"; ?>		>Prix croissant			</option>
+							<option value="prixD"	<?php if($ordreCatal=='prixD') echo " selected='selected'"; ?>		>prix décroissant		</option>
 						</select>
 						<h3>Catégorie</h3>
 							<div class="control-group">
 								<div class="controls">
+									<select id="categCatal" onchange="TrierCatal();">
+										<option value="all" <?php if($categCatal == 'all') echo "selected='selected'"; ?>>Toutes</option>
 <?php
-								for($i=0; $i<$_SESSION['categLenght']; $i++)
-								{
-									echo'<label class="checkbox">
-										<input type="checkbox" id="inlineCheckbox'.$_SESSION['categories'][$i]['cat_id'].'" value=categ'.$_SESSION['categories'][$i]['cat_id'].'"> '.$_SESSION['categories'][$i]['cat_libelle'].'</input>
-									</label>';
-								}
+										for($i=0; $i<$_SESSION['categLenght']; $i++)
+										{
+											echo'<option value="'.$_SESSION["categories"][$i]["cat_id"].'" ';
+											if($categCatal == $_SESSION["categories"][$i]["cat_id"]) echo "selected='selected'";
+											echo'>'.$_SESSION['categories'][$i]["cat_libelle"].'</option> ';
+										}
 ?>
+									</select>
 								</div>
 							</div>
 					</div>
@@ -151,13 +186,13 @@
 								</thead>
 								<tbody>
 <?php
-									for($i=0; $i<$_SESSION['catalLength']; $i++)
+									for($i=0; $i<$catalLength; $i++)
 									{
 										echo'
 										<tr>
-											<td>'.$_SESSION['catalogue'][$i]['prod_libelle'].'</td>
-											<td>'.$_SESSION['catalogue'][$i]['cat_libelle'].'</td>
-											<td>'.$_SESSION['catalogue'][$i]['prod_prixTTC'].'</td>
+											<td>'.$catalogue[$i]['prod_libelle'].'</td>
+											<td>'.$catalogue[$i]['cat_libelle'].'</td>
+											<td>'.$catalogue[$i]['prod_prixTTC'].'</td>
 										</tr>';
 									}
 ?>									
@@ -182,5 +217,5 @@
 				</div>
 			</div>
 		</div>
-	</body>
+	</body>	
 </html>
