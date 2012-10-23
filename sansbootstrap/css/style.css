@@ -1,0 +1,172 @@
+/*---------------------Général et index.php-----------------------*/
+*{ 
+	margin:0; 
+	padding:0; 
+	font-family:Arial, Helvetica, sans-serif; 
+	font-size:14px; 
+	line-height: 19px;
+}
+html{
+	background-color:white;
+}
+body{
+	width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+}
+header{ 
+	background-color:#fa9C00;
+	height:80px;
+	border-radius: 10px 10px 10px 10px;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+p {
+	margin:5px 0;
+}
+img {
+	border:none;
+}
+li {
+	list-style-type:none;	
+}
+#titleIndex h1{
+	font-weight:bold;
+	font-size:30pt;
+	color:white;
+	padding:10px;
+	float:left;
+	margin-top:15px;
+}
+#indexSearch{
+	float:right;
+	padding:10px;
+}
+#indexSearch a{
+	color:white;
+	font-weight:bold;
+}
+#indexSearch a:hover{
+	font-size:12pt;
+	text-decoration:none;
+}
+#navIndex{
+	float:right;
+	margin-right:50px;
+}
+#navIndex ul li{
+	float:right;
+	margin-left:20px;
+}
+#navIndex ul li a{
+	color:white;
+	font-weight:bold;
+	font-size:12pt;
+}
+/*---------------------catalogue.php-----------------------*/
+#catalNav{
+	float:left;
+	border:4px solid #3260cb;
+	border-radius: 10px 10px 10px 10px;
+	width:190px;
+	padding:10px;
+	text-align:center;
+}
+#catalNav h2{
+	margin:8px;
+}
+#catalSection{
+	float:left;
+	width:520px;
+	padding:10px;
+	margin:10px;
+}
+#catalCateg{
+	text-align:left;
+}
+table {
+	border:4px solid #3260cb;
+	border-collapse:collapse;
+	margin-left:auto; 
+    margin-right:auto;
+	width:512px;
+}
+th {
+	border:1px solid black;
+	padding:10px;
+	background-color:#3260cb;
+	color:white;
+	font-size:13pt;
+}
+td {
+	border:1px solid black;
+	padding:10px;
+	text-align:center;
+}
+tbody tr:hover{
+	background-color:#3260cb;
+	color:#fa9C00;
+	font-weight:bold;
+}
+#pop{
+	float:left;
+	border:4px solid #3260cb;
+	border-radius: 10px 10px 10px 10px;
+	width:190px;
+	padding:10px;
+	text-align:justify;
+	
+}
+#pop{
+	text-align:center;
+}
+#pop h2{
+	margin-bottom:10px;
+}
+#part{
+	float:left;
+	border:4px solid #3260cb;
+	border-radius: 10px 10px 10px 10px;
+	width:190px;
+	padding:10px;
+	text-align:justify;
+}
+#part h2{
+	text-align:center;
+	margin-bottom:10px;
+}
+/*---------------------faq.php-----------------------*/
+#faqTitle h1{
+	text-align:center;
+	padding:10px;
+	font-weight:bold;
+	font-size:14pt;
+}
+#faqContenu{
+	text-align:justify;
+	padding:0px 100px 0px 100px;
+}
+#faqContenu h2{
+	margin-top:20px;
+}
+/*----------------contact.php------------------------*/
+#contact_form{
+	margin-top:20px;
+}
+#contact_form label{
+	float: left;
+	width:100px;
+}
+#contact_form span{
+	color:red;
+}
+#contact_form input:focus{
+	border:2px solid #3260cb;
+}
+#contact_form textarea:focus{
+	border:2px solid #3260cb;
+}
