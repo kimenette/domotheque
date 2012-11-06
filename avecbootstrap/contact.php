@@ -16,7 +16,7 @@
 					<input type="text" placeholder="titre de l'email">
 					<label>Contenu</label>
 					<textarea rows="3" placeholder="votre message"></textarea>
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<p><button type="submit" class="btn btn-primary">Submit</button></p>
 				</form>
 		</div>
 	</body>

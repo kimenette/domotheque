@@ -174,8 +174,8 @@
 								</div>
 							</div>
 					</div>
-					<div class="span9 offset2">
-						<div class="span8">
+					<div class="span8 offset2">
+						<div class="span7">
 							<table class="table table-hover">
 								<thead>
 									<tr>
@@ -190,7 +190,12 @@
 									{
 										echo'
 										<tr>
-											<td>'.$catalogue[$i]['prod_libelle'].'</td>
+											<td>'.$catalogue[$i]['prod_libelle'].'
+												<form action="iobjet.php" method="post">
+													<input type="hidden" name="prod_id" 	value="'.$catalogue[$i]['prod_id'].'"/>
+													<input type="submit" value="+ détails"/>
+												</form>
+											</td>
 											<td>'.$catalogue[$i]['cat_libelle'].'</td>
 											<td>'.$catalogue[$i]['prod_prixTTC'].'</td>
 										</tr>';
@@ -199,7 +204,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="span1">
+						<div class="span4">
 							<h4>Participant(e) le/la mieux noté(e)</h4> <?php echo $userBestRanked['cli_pseudo']." : ".$userBestRanked['ranked']."/5" ; ?>
 							<h4>Le(/La) plus préteur(/euse)</h4> <?php echo $userShareMost['cli_pseudo'] ;?>
 							<h4>Produit phare</h4> <?php echo $prodMostPop['prod_libelle'];?>

@@ -224,6 +224,7 @@ insert into CDEPROD (CDE_ID, PROD_ID, QTE) values (1,7,1);
 insert into CDEPROD (CDE_ID, PROD_ID, QTE) values (2,10,1);
 insert into CDEPROD (CDE_ID, PROD_ID, QTE) values (3,10,1);
 insert into CDEPROD (CDE_ID, PROD_ID, QTE) values (4,3,1);
+insert into CDEPROD (CDE_ID, PROD_ID, QTE) values (5,5,1);
 
 insert into RANG (CLI_ID, RANG_NBR) values (1,5);
 insert into RANG (CLI_ID, RANG_NBR) values (1,5);

@@ -29,19 +29,36 @@ if(isset($_POST['connexion']) && $_POST['connexion']=='se connecter')
 			$_SESSION['cli_pseudo'] = $data_session['cli_pseudo'];
 			
 			//id des produits associés au client
-			$sql_prod = mysql_query('SELECT prod_id FROM client INNER JOIN produit ON client.cli_id = produit.cli_id')or die(mysql_error());
-			while($row_prod =  mysql_fetch_array($sql_prod))
+			$sql_nbrprod=mysql_query('SELECT COUNT(prod_id) FROM produit WHERE produit.cli_id="'.$_SESSION['cli_id'].'" ;')or die(mysql_error());
+			$nbrprod=mysql_result($sql_nbrprod,0);
+			if($sql_nbrprod>0)
 			{
-				$_SESSION['prod_id'][] = $row_prod['prod_id'];
+				$sql_prod = mysql_query('SELECT prod_id FROM produit WHERE cli_id="'.$_SESSION['cli_id'].'" ;')or die(mysql_error());
+				while($row_prod =  mysql_fetch_array($sql_prod))
+				{
+					$_SESSION['prod_id'][] = $row_prod['prod_id'];
+				}
+				$_SESSION['prodLength'] = sizeof($_SESSION['prod_id']);
 			}
+			else
+				$_SESSION['prodLength'] = 0;
 			
 			//id des commandes associés au client
-			$sql_cde = mysql_query('SELECT cde_id FROM client INNER JOIN commande ON client.cli_id = commande.cli_id')or die(mysql_error());
-			while($row_cde =  mysql_fetch_array($sql_cde))
+			$sql_nbrcde=mysql_query('SELECT COUNT(cde_id) FROM commande WHERE cli_id="'.$_SESSION['cli_id'].'" ;')or die(mysql_error());
+			$nbrcde=mysql_result($sql_nbrcde,0);
+			if($nbrcde>0)
 			{
-				$_SESSION['cde_id'][] = $row_cde['cde_id'];
+				$sql_cde = mysql_query('SELECT cde_id FROM commande WHERE cli_id ="'.$_SESSION['cli_id'].'" ;')or die(mysql_error());
+				while($row_cde =  mysql_fetch_array($sql_cde))
+				{
+					$_SESSION['cde_id'][] = $row_cde['cde_id'];
+				}
+				$_SESSION['cdeLength'] = sizeof($_SESSION['cde_id']);
 			}
-			header('Location:../client/index.php');
+			else 
+				$_SESSION['cdeLength']=0;
+			
+			header('Location:../index.php');
 		}
 		else
 			header('Location:../index.php');

@@ -23,9 +23,9 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Bootstrap 101 Template</title>
-		<!-- Bootstrap -->
+		<title>Domothèque</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/mycss.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="navbar">
@@ -39,7 +39,20 @@
 							if($lien[2]=='catalogue')
 								echo'<li class="active"><a href="#'.$lien[2].'" data-toggle="tab">'.$titre.'</a></li>';
 							else
-								echo'<li><a href="#'.$lien[2].'" data-toggle="tab">'.$titre.'</a></li>';
+							{
+								if($lien[2]!='seconnecter' && $lien[2]!='monespace')
+									echo'<li><a href="#'.$lien[2].'" data-toggle="tab">'.$titre.'</a></li>';
+								else
+								{
+									if(isset($_SESSION['cli_id']) && $lien[2]=='monespace')	
+										echo'<li><a href="#'.$lien[2].'" data-toggle="tab">'.$titre.'</a></li>';
+									else
+									{
+										if(!isset($_SESSION['cli_id']) && $lien[2]=='seconnecter')	
+											echo'<li><a href="#'.$lien[2].'" data-toggle="tab">'.$titre.'</a></li>';
+									}
+								}
+							}
 						}
 					}
 ?>

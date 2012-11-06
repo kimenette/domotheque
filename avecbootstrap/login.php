@@ -19,7 +19,7 @@
 							<button type="submit"  name="connexion" value="se connecter" class="btn btn-primary">Se connecter</button>
 						</form>
 					</div>
-					<div class="span9">
+					<div class="span7 offset2">
 						<legend><h2>S'inscrire</h2></legend>
 						<form name="inscription" method="post" action="">
 							<label>Pseudo</label>
@@ -30,7 +30,7 @@
 							<input type="password" name="pwd1" class="input-small" placeholder="Password" onblur="verifTaille(this)">
 							<label>Retapez votre mot de passe svp</label>
 							<input type="password" name="pwd2" class="input-small" placeholder="Password" onblur="verifTaille(this)">
-							<button type="submit" class="btn btn-primary">S'inscrire</button>
+							<p><input type="submit" class="btn btn-primary" value="S'inscrire"></input></p>
 						</form>
 					</div>
 				</div>
